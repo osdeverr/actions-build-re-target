@@ -25,6 +25,8 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - uses: seanmiddleditch/gha-setup-ninja@master
+    
     # Sets up the MSVC dev command prompt in case we're running Windows
     - uses: ilammy/msvc-dev-cmd@v1
       with:
