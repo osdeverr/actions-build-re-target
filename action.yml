@@ -10,6 +10,10 @@ inputs:
     description: A space-separated list of targets to build (empty builds all)
     default: ''
 
+  cmdline:
+    description: Custom command line options (like --msg-level problems)
+    default: ''
+
   arch:
     description: Build architecture
     default: x64
@@ -25,12 +29,5 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: seanmiddleditch/gha-setup-ninja@master
-    
-    # Sets up the MSVC dev command prompt in case we're running Windows
-    - uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: ${{ inputs.arch }}
-
-    - run: ${{ inputs.re-executable }} build --arch ${{ inputs.arch }} --configuration ${{ inputs.configuration }} --path ${{ inputs.path }} ${{ inputs.targets }}
+    - run: ${{ inputs.re-executable }} build --arch ${{ inputs.arch }} --configuration ${{ inputs.configuration }} --path ${{ inputs.path }} ${{ inputs.targets }} ${{ inputs.cmdline }}
       shell: bash
