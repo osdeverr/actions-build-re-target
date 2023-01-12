@@ -28,6 +28,12 @@ inputs:
 
 runs:
   using: 'composite'
-  steps:
+  steps:    
+    # Sets up the MSVC dev command prompt in case we're running Windows
+    - uses: ilammy/msvc-dev-cmd@v1
+      if: runner.os == 'Windows'
+      with:
+        arch: ${{ inputs.arch }}
+
     - run: ${{ inputs.re-executable }} build --arch ${{ inputs.arch }} --configuration ${{ inputs.configuration }} --path ${{ inputs.path }} ${{ inputs.targets }} ${{ inputs.cmdline }}
       shell: bash
